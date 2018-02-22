@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using XamarinEfCoreDemo.Models;
 
 namespace XamarinEfCoreDemo
 {
@@ -13,12 +14,17 @@ namespace XamarinEfCoreDemo
 		{
 			InitializeComponent();
 
-			MainPage = new XamarinEfCoreDemo.MainPage();
+			MainPage = new NavigationPage( new XamarinEfCoreDemo.MainPage());
 		}
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+		    SQLitePCL.Batteries_V2.Init();
+            // Handle when your app starts
+            using (var db = new VegiContext())
+		    {
+                DbInitializer.Initialize(db);
+		    }
 		}
 
 		protected override void OnSleep ()

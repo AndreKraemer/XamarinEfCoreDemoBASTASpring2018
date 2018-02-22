@@ -4,8 +4,12 @@
              xmlns:local="clr-namespace:XamarinEfCoreDemo"
              x:Class="XamarinEfCoreDemo.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <ListView x:Name="CategoriesListView" ItemSelected="CategoriesListView_OnItemSelected">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 
 </ContentPage>

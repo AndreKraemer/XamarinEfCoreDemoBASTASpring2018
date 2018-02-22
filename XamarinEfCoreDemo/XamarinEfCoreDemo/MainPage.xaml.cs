@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XamarinEfCoreDemo.Models;
 
 namespace XamarinEfCoreDemo
 {
@@ -13,5 +14,26 @@ namespace XamarinEfCoreDemo
 		{
 			InitializeComponent();
 		}
-	}
+
+
+	    protected override void OnAppearing()
+	    {
+	        base.OnAppearing();
+	        using (var db = new VegiContext())
+	        {
+	            CategoriesListView.ItemsSource = db.Categories.ToList();
+	        }
+
+	    }
+
+	    private void CategoriesListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+	    {
+	        if (e.SelectedItem == null)
+	        {
+	            return;
+	        }
+            var dishesPage = new DishesPage(e.SelectedItem as Category);
+            Navigation.PushAsync(dishesPage);
+        }
+    }
 }
